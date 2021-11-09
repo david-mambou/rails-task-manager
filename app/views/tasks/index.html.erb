@@ -1,0 +1,10 @@
+<% @tasks.each do |task| %>
+  <div>
+    <%= link_to task.title, "tasks/#{task.id}" %>
+    <%= link_to 'Delete', "tasks/#{task.id}", method: :delete, data: { confirm: "Do you really want to delete #{task.title}?" } %>
+  </div>
+<% end %>
+
+
+
+<%= link_to 'Add new task', 'tasks/new' %>
