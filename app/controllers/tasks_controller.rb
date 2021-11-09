@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
+  before_action :set_task, only: [:show, :edit, :update, :delete]
+
   def index
     @tasks = Task.all
   end
 
   def show
-    @task = select_task
   end
 
   def new
@@ -15,28 +16,27 @@ class TasksController < ApplicationController
 
   def create
     Task.create(task_params)
-    redirect_to tasks_path # or render? Redirect for an url, render for a view file
+    redirect_to tasks_path
   end
 
   def edit
-    @task = select_task
     # view with form
   end
 
   def update
-    select_task.update(task_params)
+    @task.update(task_params)
     redirect_to task_path(params[:id])
   end
 
   def destroy
-    select_task.destroy
+    @task.destroy
     redirect_to tasks_path
   end
 
   private
 
-  def select_task
-    Task.find(params[:id])
+  def set_task
+    @task = Task.find(params[:id])
   end
 
   def task_params
